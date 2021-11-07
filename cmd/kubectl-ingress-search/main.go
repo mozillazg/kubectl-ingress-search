@@ -43,14 +43,15 @@ It prints matched Ingress in table format.
 More info: https://github.com/mozilazg/kubectl-ingress-search`
 
 	rootCmdExamples = `
-$ kubectl ingress-search
-$ kubectl ingress-search --service test
-$ kubectl ingress-search --host example.com
-$ kubectl ingress-search --path /test
-$ kubectl ingress-search --no-header
-$ kubectl ingress-search --match-mode exact
-$ kubectl ingress-search --match-mode regexp
-$ kubectl ingress-search --case-sensitive
+$ kubectl ingress search
+$ kubectl ingress search --service test
+$ kubectl ingress search --name test
+$ kubectl ingress search --host example.com
+$ kubectl ingress search --path /test
+$ kubectl ingress search --no-header
+$ kubectl ingress search --match-mode exact
+$ kubectl ingress search --match-mode regexp
+$ kubectl ingress search --case-sensitive
 `
 )
 
@@ -159,7 +160,7 @@ func run(cmd *cobra.Command, args []string) {
 		rules = f.Filter(rules)
 	}
 
-	r := render.TableRender{NoHeader: opt.noHeader}
+	r := render.TableRender{NoHeader: opt.noHeader, AutoMerge: opt.autoMergeTable}
 	out := r.Render(rules)
 	fmt.Println(out)
 }
