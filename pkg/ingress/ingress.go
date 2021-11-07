@@ -2,7 +2,6 @@ package ingress
 
 import (
 	"context"
-	"fmt"
 
 	v1 "k8s.io/api/networking/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -28,6 +27,7 @@ func NewSearcher(client kubernetes.Interface) *Searcher {
 }
 
 func (s *Searcher) ListIngresses(ctx context.Context, namespace string, opts metav1.ListOptions) (*v1.IngressList, error) {
+	// TOOD: add cache
 	vers, err := s.getSupportedIngressVersion()
 	if err != nil {
 		return nil, err
@@ -52,7 +52,7 @@ func (s *Searcher) getSupportedIngressVersion() ([]apiVersion, error) {
 			versions = append(versions, networkingV1)
 			break
 		case networkingBetaV1:
-			versions = append(versions, extensionsV1beta1)
+			versions = append(versions, networkingBetaV1)
 			break
 		case extensionsV1beta1:
 			versions = append(versions, extensionsV1beta1)
@@ -66,10 +66,7 @@ func getApiVersions(groups []metav1.APIGroup) []apiVersion {
 	var versions []apiVersion
 	for _, g := range groups {
 		for _, v := range g.Versions {
-			ver := fmt.Sprintf("%s/%s", g.Name, v.GroupVersion)
-			if g.Name == "" {
-				ver = v.GroupVersion
-			}
+			ver := v.GroupVersion
 			versions = append(versions, apiVersion(ver))
 		}
 	}

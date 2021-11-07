@@ -21,6 +21,7 @@ func (r *TableRender) Render(rules []ingress.Rule) string {
 	// table.SetColumnSeparator("")
 	// table.SetRowLine(false)
 	if r.AutoMerge {
+		table.SetBorder(true)
 		table.SetAutoMergeCells(true)
 		table.SetRowLine(true)
 	}
