@@ -5,8 +5,9 @@ Search Ingress resources.
 
 ## Install
 
-1. Download from release page.
+1. Download from [Releases](https://github.com/mozillazg/kubectl-ingress-search/releases) page.
 2. cp kubectl-ingress-search /usr/local/bin/
+3. use `kubectl-ingress-search` or `kubectl ingress search`
 
 ## Usage
 
@@ -97,6 +98,13 @@ $ kubectl ingress search --auto-merge --host foo.bar
 |           |                           |             | /bar | Service/service2:8080 |
 +-----------+---------------------------+-------------+------+-----------------------+
 ```
+
+### highlight duplicate services
+
+```
+$ kubectl ingress search -H
+```
+![img.png](docs/img7.png)
 
 ### options
 
