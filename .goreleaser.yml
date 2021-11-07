@@ -1,0 +1,37 @@
+# .goreleaser.yml
+builds:
+  # You can have multiple builds defined as a yaml list
+  -
+    # Path to main.go file or main package.
+    # Notice: when used with `gomod.proxy`, this must be a package.
+    #
+    # Default is `.`.
+    main: ./cmd/kubectl-ingress-search
+
+    # Binary name.
+    # Can be a path (e.g. `bin/app`) to wrap the binary in a directory.
+    # Default is the name of the project directory.
+    binary: kubectl-ingress-search
+
+    # Custom asmflags templates.
+    # Default is empty.
+    asmflags:
+      - -D mysymbol
+      - all=-trimpath={{.Env.GOPATH}}
+
+    # Custom gcflags templates.
+    # Default is empty.
+    gcflags:
+      - all=-trimpath={{.Env.GOPATH}}
+#      - ./dontoptimizeme=-N
+
+    # Custom ldflags templates.
+    # Default is `-s -w -X main.version={{.Version}} -X main.commit={{.Commit}} -X main.date={{.Date}} -X main.builtBy=goreleaser`.
+    ldflags:
+      - -s -w -X main.version={{.Version}}
+#      - ./usemsan=-msan
+
+    # Custom environment variables to be set during the builds.
+    # Default is empty.
+    env:
+      - CGO_ENABLED=0
