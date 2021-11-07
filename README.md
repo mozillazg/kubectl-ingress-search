@@ -3,7 +3,7 @@
 Search Ingress resources.
 
 
-## Install
+## Installation
 
 1. Download from [Releases](https://github.com/mozillazg/kubectl-ingress-search/releases) page.
 2. cp kubectl-ingress-search /usr/local/bin/
