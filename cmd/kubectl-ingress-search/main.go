@@ -22,6 +22,7 @@ type Option struct {
 	noHeader                   bool
 	autoMergeTable             bool
 	kubeconfig                 string
+	showVersion                bool
 
 	allNamespace bool
 	namespace    string
@@ -37,6 +38,7 @@ var (
 	opt                     = &Option{}
 	matchModeRegexp         = "regexp"
 	matchModeExact          = "exact"
+	version                 = ""
 	rootCmdDescriptionShort = "Search Ingress resources"
 	rootCmdDescriptionLong  = `kubectl-ingress-search search Ingress resources to match given pattern(s).
 It prints matched Ingress in table format.
@@ -64,6 +66,7 @@ var rootCmd = &cobra.Command{
 }
 
 func init() {
+	rootCmd.Flags().BoolVarP(&opt.showVersion, "version", "V", false, "show version and exit")
 	rootCmd.Flags().StringVarP(&opt.matchMode, "match-mode", "m", "exact", "exact match or regexp match. One of (exact|regexp)")
 	rootCmd.Flags().BoolVarP(&opt.caseSensitive, "case-sensitive", "I", false, "case sensitive pattern match")
 	rootCmd.Flags().BoolVarP(&opt.highlightDuplicateServices, "highlight-duplicate-service", "H", false, "highlight duplicate service")
@@ -135,6 +138,10 @@ func buildFilters() ([]process.Filter, error) {
 }
 
 func run(cmd *cobra.Command, args []string) {
+	if opt.showVersion {
+		fmt.Println(version)
+		return
+	}
 	namespace := opt.namespace
 	if opt.allNamespace {
 		namespace = ""

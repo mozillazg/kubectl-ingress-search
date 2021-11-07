@@ -109,7 +109,7 @@ $ kubectl ingress search -H
 ### options
 
 ```
-$ ./kubectl-ingress-search -h
+$ kubectl-ingress-search -h
 kubectl-ingress-search search Ingress resources to match given pattern(s).
 It prints matched Ingress in table format.
 More info: https://github.com/mozilazg/kubectl-ingress-search
@@ -145,4 +145,6 @@ Flags:
       --no-header                     don't show table header
   -p, --path string                   search by path
   -s, --service string                search by service
+  -V, --version                       show version and exit
+
 ```
