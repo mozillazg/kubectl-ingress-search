@@ -40,6 +40,27 @@ $ kubectl ingress search -n test
   test      | minimal-ingress |      | /testpath | Service/test:80  
 ```
 
+all namespaces:
+
+```
+$ kubectl ingress search -A
+  NAMESPACE |                  NAME                   |         HOST          |   PATH    |                  BACKEND                   
+------------+-----------------------------------------+-----------------------+-----------+--------------------------------------------
+  default   | ingress-resource-backend                |                       | /icons    | k8s.example.com/StorageBucket/icon-assets  
+  default   | ingress-wildcard-host                   | foo.bar.com           | /bar      | Service/service1:80                        
+  default   | ingress-wildcard-host                   | *.foo.com             | /foo      | Service/service2:80                        
+  default   | minimal-ingress                         |                       | /testpath | Service/test:80                            
+  default   | name-virtual-host-ingress               | foo.bar.com           | /         | Service/service1:80                        
+  default   | name-virtual-host-ingress               | bar.foo.com           | /         | Service/service2:80                        
+  default   | name-virtual-host-ingress-no-third-host | first.bar.com         | /         | Service/service1:80                        
+  default   | name-virtual-host-ingress-no-third-host | second.bar.com        | /         | Service/service2:80                        
+  default   | name-virtual-host-ingress-no-third-host |                       | /         | Service/service3:80                        
+  default   | simple-fanout-example                   | foo.bar.com           | /foo      | Service/service1:4200                      
+  default   | simple-fanout-example                   | foo.bar.com           | /bar      | Service/service2:8080                      
+  default   | tls-example-ingress                     | https-example.foo.com | /         | Service/service1:80                        
+  test      | minimal-ingress                         |                       | /testpath | Service/test:80                            
+```
+
 ### by service
 
 ```
@@ -106,7 +127,7 @@ $ kubectl ingress search -H
 ```
 ![img.png](docs/img7.png)
 
-### options
+### arguments
 
 ```
 $ kubectl-ingress-search -h
